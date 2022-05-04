@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luma Todos & Notes</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="light-mode">
+    <div id="app" class="app-container">
+        <aside class="sidebar">
+            <nav>
+                <button id="nav-todos" class="nav-item active">
+                    Todos <span class="badge" id="todo-badge">0</span>
+                </button>
+                <button id="nav-notes" class="nav-item">
+                    Notes <span class="badge" id="note-badge">0</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="theme-toggle">Toggle Theme</button>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <section id="todo-panel" class="panel">
+                <header>
+                    <h1>Todos</h1>
+                    <div class="todo-input-group">
+                        <input type="text" id="todo-input" placeholder="What needs to be done? (Ctrl+N)">
+                        <input type="date" id="todo-date">
+                        <button id="add-todo">Add</button>
+                    </div>
+                </header>
+                
+                <div class="todo-controls">
+                    <div class="filters">
+                        <button data-filter="all" class="filter-btn active">All</button>
+                        <button data-filter="active" class="filter-btn">Active</button>
+                        <button data-filter="completed" class="filter-btn">Completed</button>
+                    </div>
+                    <div class="bulk-actions">
+                        <button id="mark-all-complete">Mark all complete</button>
+                        <button id="clear-completed">Clear completed</button>
+                    </div>
+                </div>
+                
+                <ul id="todo-list" class="todo-list"></ul>
+                
+                <footer>
+                    <span id="todo-count">0 tasks remaining</span>
+                </footer>
+            </section>
+            
+            <section id="note-panel" class="panel hidden">
+                <header>
+                    <h1>Notes</h1>
+                    <div class="note-controls">
+                        <input type="text" id="note-search" placeholder="Search notes... (Ctrl+F)">
+                        <button id="new-note">New Note (Ctrl+N)</button>
+                    </div>
+                    <div class="sort-controls">
+                        <select id="note-sort">
+                            <option value="updatedAt">Sort by: Recently Modified</option>
+                            <option value="createdAt">Sort by: Date Created</option>
+                            <option value="title">Sort by: Alphabetical</option>
+                        </select>
+                    </div>
+                </header>
+                
+                <div id="notes-grid" class="notes-grid"></div>
+            </section>
+        </main>
+        
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+    
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
