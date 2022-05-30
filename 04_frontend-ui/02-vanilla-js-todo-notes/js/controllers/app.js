@@ -1,21 +1,35 @@
 import { TodoList } from '../models/todo.js';
+import { NoteCollection } from '../models/note.js';
 import { TodoView } from '../views/todo-view.js';
+import { NoteView } from '../views/note-view.js';
 import { Store } from '../storage/store.js';
+import { debounce } from '../utils/debounce.js';
 
 export class AppController {
     constructor() {
         this.todoList = new TodoList(Store.load('luma_todos') || []);
+        this.noteCollection = new NoteCollection(Store.load('luma_notes') || []);
+        this.settings = Store.load('luma_settings') || { theme: 'light', activePanel: 'todos' };
+        
         this.todoView = new TodoView();
+        this.noteView = new NoteView();
         
         this.currentFilter = 'all';
-        this.draggedItem = null;
+        this.noteFilter = { search: '', tag: '', sortBy: 'updatedAt' };
         
         this.init();
     }
 
     init() {
         this.renderTodos();
+        this.renderNotes();
+        this.applySettings();
         this.bindEvents();
+    }
+
+    applySettings() {
+        document.body.className = `${this.settings.theme}-mode`;
+        this.switchPanel(this.settings.activePanel);
     }
 
     renderTodos() {
@@ -25,14 +39,27 @@ export class AppController {
         Store.save('luma_todos', this.todoList.toJSON());
     }
 
+    renderNotes() {
+        const filteredNotes = this.noteCollection.getFiltered(this.noteFilter);
+        this.noteView.render(filteredNotes);
+        this.noteView.updateBadge(this.noteCollection.notes.length);
+        Store.save('luma_notes', this.noteCollection.toJSON());
+    }
+
     bindEvents() {
-        // Add Todo
+        // Navigation
+        document.getElementById('nav-todos').addEventListener('click', () => this.switchPanel('todos'));
+        document.getElementById('nav-notes').addEventListener('click', () => this.switchPanel('notes'));
+
+        // Theme
+        document.getElementById('theme-toggle').addEventListener('click', () => this.toggleTheme());
+
+        // Todo Events (already implemented, just adding here)
         this.todoView.addButton.addEventListener('click', () => this.handleAddTodo());
         this.todoView.inputElement.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.handleAddTodo();
         });
         
-        // Filters
         this.todoView.filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 this.currentFilter = btn.dataset.filter;
@@ -41,7 +68,6 @@ export class AppController {
             });
         });
 
-        // Bulk Actions
         this.todoView.markAllBtn.addEventListener('click', () => {
             this.todoList.markAllComplete();
             this.renderTodos();
@@ -51,7 +77,6 @@ export class AppController {
             this.renderTodos();
         });
 
-        // Delegation for Todo list actions
         this.todoView.listElement.addEventListener('click', (e) => {
             const id = e.target.closest('.todo-item')?.dataset.id;
             if (!id) return;
@@ -67,7 +92,6 @@ export class AppController {
             }
         });
 
-        // Edit listener
         this.todoView.listElement.addEventListener('todo-updated', (e) => {
             const { id, title } = e.detail;
             const todo = this.todoList.getById(id);
@@ -77,13 +101,63 @@ export class AppController {
             }
         });
 
-        // Drag and Drop
+        // Note Events
+        this.noteView.newNoteBtn.addEventListener('click', () => {
+            this.noteCollection.add();
+            this.renderNotes();
+        });
+
+        const debouncedSave = debounce((id, title, body) => {
+            const note = this.noteCollection.getById(id);
+            if (note) {
+                note.update(title, body);
+                Store.save('luma_notes', this.noteCollection.toJSON());
+            }
+        }, 2000);
+
+        this.noteView.gridElement.addEventListener('input', (e) => {
+            const id = e.target.closest('.note-card')?.dataset.id;
+            if (!id) return;
+
+            const card = e.target.closest('.note-card');
+            const title = card.querySelector('.note-title-input').value;
+            const body = card.querySelector('.note-body-input').value;
+            
+            debouncedSave(id, title, body);
+        });
+
         this.bindDragEvents();
+    }
+
+    switchPanel(panel) {
+        this.settings.activePanel = panel;
+        Store.save('luma_settings', this.settings);
+
+        document.getElementById('todo-panel').classList.toggle('hidden', panel !== 'todos');
+        document.getElementById('note-panel').classList.toggle('hidden', panel !== 'notes');
+        document.getElementById('nav-todos').classList.toggle('active', panel === 'todos');
+        document.getElementById('nav-notes').classList.toggle('active', panel === 'notes');
+    }
+
+    toggleTheme() {
+        this.settings.theme = this.settings.theme === 'light' ? 'dark' : 'light';
+        document.body.className = `${this.settings.theme}-mode`;
+        Store.save('luma_settings', this.settings);
+    }
+
+    // ... handleAddTodo and drag event methods as before ...
+    handleAddTodo() {
+        const title = this.todoView.inputElement.value.trim();
+        const dueDate = this.todoView.dateElement.value;
+        if (title) {
+            this.todoList.add(title, dueDate);
+            this.todoView.clearInput();
+            this.renderTodos();
+        }
     }
 
     bindDragEvents() {
         this.todoView.listElement.addEventListener('dragstart', (e) => {
-            this.draggedItem = e.target.closest('.todo-item');
             e.target.classList.add('dragging');
         });
 
@@ -106,8 +180,6 @@ export class AppController {
             e.preventDefault();
             const items = Array.from(this.todoView.listElement.querySelectorAll('.todo-item'));
             const newOrderIds = items.map(item => item.dataset.id);
-            
-            // Reorder the actual list based on DOM order
             const newTodos = newOrderIds.map(id => this.todoList.getById(id));
             this.todoList.todos = newTodos;
             this.renderTodos();
@@ -125,15 +197,5 @@ export class AppController {
                 return closest;
             }
         }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
-
-    handleAddTodo() {
-        const title = this.todoView.inputElement.value.trim();
-        const dueDate = this.todoView.dateElement.value;
-        if (title) {
-            this.todoList.add(title, dueDate);
-            this.todoView.clearInput();
-            this.renderTodos();
-        }
     }
 }
