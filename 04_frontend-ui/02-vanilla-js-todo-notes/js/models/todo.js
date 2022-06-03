@@ -1,8 +1,8 @@
 import { generateId } from '../utils/uuid.js';
 
 export class Todo {
-    constructor({ id = generateId(), title, completed = false, dueDate = null, order = 0, createdAt = Date.now(), updatedAt = Date.now() }) {
-        this.id = id;
+    constructor(id, title, completed = false, dueDate = '', order = 0, createdAt = new Date().toISOString(), updatedAt = new Date().toISOString()) {
+        this.id = id || generateId();
         this.title = title;
         this.completed = completed;
         this.dueDate = dueDate;
@@ -11,26 +11,26 @@ export class Todo {
         this.updatedAt = updatedAt;
     }
 
-    toggle() {
-        this.completed = !this.completed;
-        this.updatedAt = Date.now();
-    }
-
     update(title, dueDate) {
         this.title = title;
         this.dueDate = dueDate;
-        this.updatedAt = Date.now();
+        this.updatedAt = new Date().toISOString();
+    }
+
+    toggle() {
+        this.completed = !this.completed;
+        this.updatedAt = new Date().toISOString();
     }
 }
 
 export class TodoList {
     constructor(todos = []) {
-        this.todos = todos.map(t => new Todo(t));
+        this.todos = todos.map(t => new Todo(t.id, t.title, t.completed, t.dueDate, t.order, t.createdAt, t.updatedAt));
     }
 
     add(title, dueDate) {
-        const order = this.todos.length > 0 ? Math.max(...this.todos.map(t => t.order)) + 1 : 0;
-        const todo = new Todo({ title, dueDate, order });
+        const order = this.todos.length;
+        const todo = new Todo(null, title, false, dueDate, order);
         this.todos.push(todo);
         return todo;
     }
@@ -48,33 +48,27 @@ export class TodoList {
         if (todo) todo.toggle();
     }
 
+    markAllComplete() {
+        const allCompleted = this.todos.every(t => t.completed);
+        this.todos.forEach(t => t.completed = !allCompleted);
+    }
+
     clearCompleted() {
         this.todos = this.todos.filter(t => !t.completed);
     }
 
-    markAllComplete() {
-        this.todos.forEach(t => {
-            if (!t.completed) t.toggle();
-        });
-    }
-
-    reorder(startIndex, endIndex) {
-        const [removed] = this.todos.splice(startIndex, 1);
-        this.todos.splice(endIndex, 0, removed);
-        this.todos.forEach((t, index) => {
-            t.order = index;
+    reorder(newOrderIds) {
+        this.todos = newOrderIds.map(id => this.getById(id)).filter(Boolean);
+        this.todos.forEach((todo, index) => {
+            todo.order = index;
         });
     }
 
     getFiltered(filter) {
-        switch (filter) {
-            case 'active':
-                return this.todos.filter(t => !t.completed);
-            case 'completed':
-                return this.todos.filter(t => t.completed);
-            default:
-                return this.todos;
-        }
+        let result = [...this.todos];
+        if (filter === 'active') result = result.filter(t => !t.completed);
+        if (filter === 'completed') result = result.filter(t => t.completed);
+        return result.sort((a, b) => a.order - b.order);
     }
 
     get remainingCount() {

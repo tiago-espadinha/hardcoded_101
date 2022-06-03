@@ -22,13 +22,18 @@ export class NoteView {
 
         div.innerHTML = `
             <div class="note-card-header">
-                <input type="text" class="note-title-input" value="${note.title}" placeholder="Note Title">
-                <button class="pin-note" title="Pin note">${note.pinned ? 'Pinned' : 'Pin'}</button>
+                <input type="text" class="note-title-input" value="${this.escapeHtml(note.title)}" placeholder="Note Title">
+                <button class="pin-note ${note.pinned ? 'active' : ''}" title="Pin note">${note.pinned ? '★' : '☆'}</button>
             </div>
-            <textarea class="note-body-input" placeholder="Start typing...">${note.body}</textarea>
+            <textarea class="note-body-input" placeholder="Start typing...">${this.escapeHtml(note.body)}</textarea>
             <div class="note-card-footer">
                 <div class="tags-container">
-                    ${note.tags.map(tag => `<span class="tag">${tag}<button class="remove-tag" data-tag="${tag}">&times;</button></span>`).join('')}
+                    ${note.tags.map(tag => `
+                        <span class="tag">
+                            ${this.escapeHtml(tag)}
+                            <button class="remove-tag" data-tag="${this.escapeHtml(tag)}">&times;</button>
+                        </span>
+                    `).join('')}
                     <button class="add-tag">+ Tag</button>
                 </div>
                 <button class="delete-note">Delete</button>
@@ -40,5 +45,11 @@ export class NoteView {
 
     updateBadge(count) {
         this.badgeElement.textContent = count;
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 }

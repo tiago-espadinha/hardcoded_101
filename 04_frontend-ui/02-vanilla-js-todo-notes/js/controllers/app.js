@@ -17,6 +17,9 @@ export class AppController {
         this.currentFilter = 'all';
         this.noteFilter = { search: '', tag: '', sortBy: 'updatedAt' };
         
+        this.undoTimeout = null;
+        this.lastDeletedNote = null;
+        
         this.init();
     }
 
@@ -54,7 +57,7 @@ export class AppController {
         // Theme
         document.getElementById('theme-toggle').addEventListener('click', () => this.toggleTheme());
 
-        // Todo Events (already implemented, just adding here)
+        // Todo Events
         this.todoView.addButton.addEventListener('click', () => this.handleAddTodo());
         this.todoView.inputElement.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.handleAddTodo();
@@ -107,6 +110,16 @@ export class AppController {
             this.renderNotes();
         });
 
+        this.noteView.searchElement.addEventListener('input', (e) => {
+            this.noteFilter.search = e.target.value.toLowerCase();
+            this.renderNotes();
+        });
+
+        this.noteView.sortElement.addEventListener('change', (e) => {
+            this.noteFilter.sortBy = e.target.value;
+            this.renderNotes();
+        });
+
         const debouncedSave = debounce((id, title, body) => {
             const note = this.noteCollection.getById(id);
             if (note) {
@@ -119,14 +132,115 @@ export class AppController {
             const id = e.target.closest('.note-card')?.dataset.id;
             if (!id) return;
 
-            const card = e.target.closest('.note-card');
-            const title = card.querySelector('.note-title-input').value;
-            const body = card.querySelector('.note-body-input').value;
-            
-            debouncedSave(id, title, body);
+            if (e.target.classList.contains('note-title-input') || e.target.classList.contains('note-body-input')) {
+                const card = e.target.closest('.note-card');
+                const title = card.querySelector('.note-title-input').value;
+                const body = card.querySelector('.note-body-input').value;
+                debouncedSave(id, title, body);
+            }
+        });
+
+        this.noteView.gridElement.addEventListener('click', (e) => {
+            const id = e.target.closest('.note-card')?.dataset.id;
+            if (!id) return;
+
+            if (e.target.classList.contains('pin-note')) {
+                const note = this.noteCollection.getById(id);
+                if (note) {
+                    note.pinned = !note.pinned;
+                    this.renderNotes();
+                }
+            } else if (e.target.classList.contains('delete-note')) {
+                this.handleDeleteNote(id);
+            } else if (e.target.classList.contains('add-tag')) {
+                const tag = prompt('Enter tag name:');
+                if (tag) {
+                    const note = this.noteCollection.getById(id);
+                    if (note) {
+                        note.addTag(tag);
+                        this.renderNotes();
+                    }
+                }
+            } else if (e.target.classList.contains('remove-tag')) {
+                const tag = e.target.dataset.tag;
+                const note = this.noteCollection.getById(id);
+                if (note) {
+                    note.removeTag(tag);
+                    this.renderNotes();
+                }
+            }
+        });
+
+        // Toast events
+        document.getElementById('toast-container').addEventListener('click', (e) => {
+            if (e.target.classList.contains('toast-undo')) {
+                this.undoDeleteNote();
+            }
+        });
+
+        // Keyboard Shortcuts
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'n') {
+                e.preventDefault();
+                if (this.settings.activePanel === 'todos') {
+                    this.todoView.inputElement.focus();
+                } else {
+                    this.noteCollection.add();
+                    this.renderNotes();
+                }
+            } else if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                if (this.settings.activePanel === 'notes') {
+                    this.noteView.searchElement.focus();
+                }
+            } else if (e.key === 'Escape') {
+                this.todoView.listElement.querySelectorAll('.todo-item.editing').forEach(item => {
+                    item.classList.remove('editing');
+                    this.renderTodos();
+                });
+            }
         });
 
         this.bindDragEvents();
+    }
+
+    handleDeleteNote(id) {
+        this.lastDeletedNote = this.noteCollection.getById(id);
+        this.noteCollection.remove(id);
+        this.renderNotes();
+        
+        this.showToast('Note deleted', true);
+        
+        if (this.undoTimeout) clearTimeout(this.undoTimeout);
+        this.undoTimeout = setTimeout(() => {
+            this.lastDeletedNote = null;
+            this.hideToast();
+        }, 5000);
+    }
+
+    undoDeleteNote() {
+        if (this.lastDeletedNote) {
+            this.noteCollection.notes.push(this.lastDeletedNote);
+            this.lastDeletedNote = null;
+            if (this.undoTimeout) clearTimeout(this.undoTimeout);
+            this.hideToast();
+            this.renderNotes();
+        }
+    }
+
+    showToast(message, canUndo = false) {
+        const container = document.getElementById('toast-container');
+        container.innerHTML = `
+            <div class="toast">
+                <span>${message}</span>
+                ${canUndo ? '<button class="toast-undo">Undo</button>' : ''}
+            </div>
+        `;
+        container.classList.add('visible');
+    }
+
+    hideToast() {
+        document.getElementById('toast-container').classList.remove('visible');
     }
 
     switchPanel(panel) {
@@ -145,7 +259,6 @@ export class AppController {
         Store.save('luma_settings', this.settings);
     }
 
-    // ... handleAddTodo and drag event methods as before ...
     handleAddTodo() {
         const title = this.todoView.inputElement.value.trim();
         const dueDate = this.todoView.dateElement.value;
@@ -158,21 +271,25 @@ export class AppController {
 
     bindDragEvents() {
         this.todoView.listElement.addEventListener('dragstart', (e) => {
-            e.target.classList.add('dragging');
+            const item = e.target.closest('.todo-item');
+            if (item) item.classList.add('dragging');
         });
 
         this.todoView.listElement.addEventListener('dragend', (e) => {
-            e.target.classList.remove('dragging');
+            const item = e.target.closest('.todo-item');
+            if (item) item.classList.remove('dragging');
         });
 
         this.todoView.listElement.addEventListener('dragover', (e) => {
             e.preventDefault();
             const afterElement = this.getDragAfterElement(this.todoView.listElement, e.clientY);
             const draggable = document.querySelector('.dragging');
-            if (afterElement == null) {
-                this.todoView.listElement.appendChild(draggable);
-            } else {
-                this.todoView.listElement.insertBefore(draggable, afterElement);
+            if (draggable) {
+                if (afterElement == null) {
+                    this.todoView.listElement.appendChild(draggable);
+                } else {
+                    this.todoView.listElement.insertBefore(draggable, afterElement);
+                }
             }
         });
 
@@ -180,8 +297,7 @@ export class AppController {
             e.preventDefault();
             const items = Array.from(this.todoView.listElement.querySelectorAll('.todo-item'));
             const newOrderIds = items.map(item => item.dataset.id);
-            const newTodos = newOrderIds.map(id => this.todoList.getById(id));
-            this.todoList.todos = newTodos;
+            this.todoList.reorder(newOrderIds);
             this.renderTodos();
         });
     }
