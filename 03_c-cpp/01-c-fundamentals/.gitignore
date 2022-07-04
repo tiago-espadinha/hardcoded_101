@@ -1,0 +1,37 @@
+# Compiled binaries
+*.o
+*.out
+*.a
+*.so
+
+# Debug/sanitizer artifacts
+*.dSYM/
+*.dSYM
+
+# Build directories
+build/
+bin/
+
+# Module-specific binaries
+memory/01_pointers
+memory/02_stack_vs_heap
+memory/03_pointers_and_arrays
+memory/04_strings
+memory/05_structs
+structures/linked_list
+structures/hash_table
+files/grade_tracker
+files/binary_rw
+
+# Data files generated at runtime
+files/*.csv
+files/*.bin
+
+# Editor and OS artifacts
+.DS_Store
+.vscode/
+*.swp
+*~
+
+# Guide file — not tracked
+guide.md
