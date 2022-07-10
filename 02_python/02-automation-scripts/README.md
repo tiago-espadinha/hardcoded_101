@@ -30,8 +30,33 @@ A collection of real-world Python automation tools designed to handle repetitive
 
 ## How to Run
 Run the tools directly from the command line:
+
+### File Organiser
 ```bash
 python organise.py --source ./downloads --dry-run
+python organise.py --undo .organise_log_20220608_112714.json
+```
+
+### CSV Data Cleaner
+```bash
+python clean_csv.py data.csv --strip-whitespace --normalise-headers --drop-duplicates
+```
+
+### Batch Image Resizer
+```bash
+python resize_images.py ./photos --width 800 --format webp
+```
+
+### Web Scraper
+```bash
+python scrape.py --url https://example.com --selector "article h2" --output results.json
+```
+
+### Email Sender
+```bash
+export EMAIL_USER="your-email@gmail.com"
+export EMAIL_PASS="your-app-password"
+python send_email.py --to recipient@example.com --subject "Automation Report" --body "Check the attached results." --attach results.json
 ```
 
 ## Testing
