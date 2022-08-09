@@ -1,6 +1,9 @@
 /*
  * hash_table.c — Open-addressing hash table with linear probing.
- *
+ * _POSIX_C_SOURCE exposes strdup() under strict C17 with -Wall/-Wextra.
+ */
+#define _POSIX_C_SOURCE 200809L
+/*
  * Compile:
  *   gcc -std=c17 -Wall -Wextra -Werror -fsanitize=address,undefined \
  *       -o hash_table hash_table.c
