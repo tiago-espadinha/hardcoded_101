@@ -17,10 +17,10 @@ assert_runs() {
     local label="$1"; shift
     if "$@" > /dev/null 2>&1; then
         printf "  ${GRN}PASS${NC}  %s\n" "$label"
-        ((PASS++))
+        PASS=$((PASS+1))
     else
         printf "  ${RED}FAIL${NC}  %s\n" "$label"
-        ((FAIL++))
+        FAIL=$((FAIL+1))
     fi
 }
 
@@ -33,10 +33,10 @@ assert_output_contains() {
     out=$("$binary" "$@" 2>&1) || true
     if echo "$out" | grep -q "$expected"; then
         printf "  ${GRN}PASS${NC}  %s\n" "$label"
-        ((PASS++))
+        PASS=$((PASS+1))
     else
         printf "  ${RED}FAIL${NC}  %s  (expected: '%s')\n" "$label" "$expected"
-        ((FAIL++))
+        FAIL=$((FAIL+1))
     fi
 }
 
@@ -76,7 +76,7 @@ echo "${YLW}[structures]${NC}"
 
 assert_runs          "linked_list runs"                    ./structures/linked_list
 assert_output_contains "linked_list: append"               ./structures/linked_list "10"
-assert_output_contains "linked_list: reverse"              ./structures/linked_list "Reverse"
+assert_output_contains "linked_list: reverse"              ./structures/linked_list "reverse"
 assert_output_contains "linked_list: search found"         ./structures/linked_list "found"
 assert_output_contains "linked_list: search not found"     ./structures/linked_list "not found"
 
@@ -100,9 +100,9 @@ pushd "$TMPDIR_GT" > /dev/null
 assert_runs          "grade_tracker: add Alice"       ./grade_tracker add "Alice"  88 92 95
 assert_runs          "grade_tracker: add Bob"         ./grade_tracker add "Bob"    72 68 80
 assert_runs          "grade_tracker: add Carol"       ./grade_tracker add "Carol"  95 97 99
-assert_output_contains "grade_tracker: list shows names" ./grade_tracker list "Alice"
-assert_output_contains "grade_tracker: average ID 1"     ./grade_tracker average 1 "91"
-assert_output_contains "grade_tracker: top 2 has Carol"  ./grade_tracker top 2 "Carol"
+assert_output_contains "grade_tracker: list shows names" ./grade_tracker "Alice" list
+assert_output_contains "grade_tracker: average ID 1"     ./grade_tracker "91.67" average 1
+assert_output_contains "grade_tracker: top 2 has Carol"  ./grade_tracker "Carol" top 2
 
 popd > /dev/null
 rm -rf "$TMPDIR_GT"
