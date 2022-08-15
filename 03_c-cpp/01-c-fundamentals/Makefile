@@ -5,6 +5,9 @@ ASAN    = -fsanitize=address,undefined
 DBGFLG  = -g $(ASAN)
 RELFLG  = -O2
 
+# Export so sub-makes and scripts inherit the chosen flags
+export CC CSTD WARN
+
 # ── source lists ───────────────────────────────────────────────────────────
 
 MEM_SRCS = memory/01_pointers.c \
