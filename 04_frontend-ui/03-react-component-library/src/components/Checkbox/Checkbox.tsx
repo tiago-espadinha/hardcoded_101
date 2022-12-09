@@ -1,7 +1,10 @@
-import React, { useId, forwardRef, useEffect, useRef } from 'react';
-import styles from './Checkbox.module.css';
+import React, { useId, forwardRef, useEffect, useRef } from "react";
+import styles from "./Checkbox.module.css";
 
-export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+export interface CheckboxProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "type"
+> {
   label?: string;
   error?: string;
   indeterminate?: boolean;
@@ -16,7 +19,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     // Merge refs
     useEffect(() => {
-      if (typeof ref === 'function') {
+      if (typeof ref === "function") {
         ref(internalRef.current);
       } else if (ref) {
         ref.current = internalRef.current;
@@ -31,10 +34,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     const containerClasses = [
       styles.container,
-      disabled ? styles.disabled : '',
-      error ? styles.hasError : '',
+      disabled ? styles.disabled : "",
+      error ? styles.hasError : "",
       className,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(" ");
 
     return (
       <div className={containerClasses}>
@@ -53,11 +58,26 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             <div className={styles.checkboxControl}>
               {indeterminate ? (
                 <svg viewBox="0 0 24 24" className={styles.icon}>
-                  <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                  <line
+                    x1="5"
+                    y1="12"
+                    x2="19"
+                    y2="12"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
                 </svg>
               ) : (
                 <svg viewBox="0 0 24 24" className={styles.icon}>
-                  <polyline points="20 6 9 17 4 12" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                  <polyline
+                    points="20 6 9 17 4 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               )}
             </div>
@@ -71,7 +91,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
-Checkbox.displayName = 'Checkbox';
+Checkbox.displayName = "Checkbox";

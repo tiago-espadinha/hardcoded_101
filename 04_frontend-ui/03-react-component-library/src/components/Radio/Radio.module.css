@@ -1,0 +1,89 @@
+.groupContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  font-family: var(--font-sans);
+}
+
+.groupLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-1);
+}
+
+.radioContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  width: fit-content;
+  transition: all var(--transition-fast);
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.disabled .radioContainer {
+  cursor: not-allowed;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radioControl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input:checked + .radioControl {
+  border-color: var(--color-primary-500);
+}
+
+.innerCircle {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-primary-500);
+  border-radius: var(--radius-full);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all var(--transition-fast);
+}
+
+.input:checked + .radioControl .innerCircle {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.input:focus-visible + .radioControl {
+  box-shadow: 0 0 0 2px var(--color-primary-100);
+  border-color: var(--color-primary-500);
+}
+
+.labelText {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-900);
+  user-select: none;
+}
