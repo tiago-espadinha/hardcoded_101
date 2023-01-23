@@ -8,3 +8,4 @@ export * from "./components/Radio";
 export * from "./components/Toggle";
 export * from "./components/Avatar";
 export * from "./components/Select";
+export * from "./theme/ThemeProvider";

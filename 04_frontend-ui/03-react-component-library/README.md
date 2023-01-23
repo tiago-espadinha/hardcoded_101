@@ -29,6 +29,29 @@ Run the Storybook to see the components in action:
 npm run storybook
 ```
 
+## Theming
+Wrap components with `ThemeProvider` to enable the built-in light or dark theme.
+
+```tsx
+import { ThemeProvider, useTheme } from "pulsar-ui";
+
+const ThemeButton = () => {
+	const { theme, setTheme } = useTheme();
+
+	return (
+		<button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+			Toggle theme
+		</button>
+	);
+};
+
+const App = () => (
+	<ThemeProvider defaultTheme="light">
+		<ThemeButton />
+	</ThemeProvider>
+);
+```
+
 ## Testing
 Run all tests using Vitest:
 ```bash

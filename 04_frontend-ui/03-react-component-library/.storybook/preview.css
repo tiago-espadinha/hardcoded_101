@@ -1,0 +1,8 @@
+body,
+#storybook-root,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-sans);
+}

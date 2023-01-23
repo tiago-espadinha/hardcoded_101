@@ -59,7 +59,7 @@ export const Select: React.FC<SelectProps> = ({
   useEffect(() => {
     if (isOpen) {
       const initialIndex = options.findIndex((opt) => opt.value === value);
-      setHighlightedIndex(initialIndex >= 0 ? initialIndex : 0);
+      setHighlightedIndex(initialIndex);
     } else {
       setHighlightedIndex(-1);
     }
@@ -151,6 +151,7 @@ export const Select: React.FC<SelectProps> = ({
           className={styles.trigger}
           onClick={handleToggle}
           onKeyDown={handleKeyDown}
+          role="combobox"
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           aria-labelledby={label ? labelId : undefined}
