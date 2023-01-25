@@ -5,6 +5,7 @@ console = Console()
 
 from .scaffold.command import scaffold
 from .vault.command import vault
+from .finance.command import finance
 
 @click.group()
 def main():
@@ -13,6 +14,7 @@ def main():
 
 main.add_command(scaffold)
 main.add_command(vault)
+main.add_command(finance)
 
 if __name__ == "__main__":
     main()
