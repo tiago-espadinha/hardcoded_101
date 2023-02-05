@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  font-family: var(--font-sans);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  width: fit-content;
+}
+
+.disabled .checkboxLabel {
+  cursor: not-allowed;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkboxControl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input:checked + .checkboxControl,
+.input:indeterminate + .checkboxControl {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.input:focus-visible + .checkboxControl {
+  box-shadow: 0 0 0 2px var(--color-primary-100);
+  border-color: var(--color-primary-500);
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  color: var(--color-white);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all var(--transition-fast);
+}
+
+.input:checked + .checkboxControl .icon,
+.input:indeterminate + .checkboxControl .icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.labelText {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-900);
+  user-select: none;
+}
+
+.disabled {
+  opacity: 0.6;
+}
+
+.hasError .checkboxControl {
+  border-color: var(--color-error-500);
+}
+
+.errorMessage {
+  font-size: var(--font-size-xs);
+  color: var(--color-error-500);
+  margin: 0;
+  padding-left: 28px; /* Alignment with label text approx */
+}

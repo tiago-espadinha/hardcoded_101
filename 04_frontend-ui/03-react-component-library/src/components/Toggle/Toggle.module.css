@@ -1,0 +1,108 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  width: fit-content;
+  font-family: var(--font-sans);
+  transition: opacity var(--transition-fast);
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.toggleWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.track {
+  background-color: var(--color-gray-300);
+  border-radius: var(--radius-full);
+  transition: background-color var(--transition-base);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.input:checked + .track {
+  background-color: var(--color-primary-500);
+}
+
+.thumb {
+  background-color: var(--color-white);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-base);
+  position: absolute;
+  box-shadow: var(--shadow-sm);
+}
+
+.input:focus-visible + .track {
+  box-shadow: 0 0 0 2px var(--color-primary-100);
+}
+
+/* Sizes */
+.sm .track {
+  width: 32px;
+  height: 18px;
+}
+.sm .thumb {
+  width: 14px;
+  height: 14px;
+  top: 2px;
+  left: 2px;
+}
+.sm .input:checked + .track .thumb {
+  transform: translateX(14px);
+}
+.sm .labelText {
+  font-size: var(--font-size-sm);
+}
+
+.md .track {
+  width: 44px;
+  height: 24px;
+}
+.md .thumb {
+  width: 20px;
+  height: 20px;
+  top: 2px;
+  left: 2px;
+}
+.md .input:checked + .track .thumb {
+  transform: translateX(20px);
+}
+.md .labelText {
+  font-size: var(--font-size-base);
+}
+
+.lg .track {
+  width: 56px;
+  height: 30px;
+}
+.lg .thumb {
+  width: 26px;
+  height: 26px;
+  top: 2px;
+  left: 2px;
+}
+.lg .input:checked + .track .thumb {
+  transform: translateX(26px);
+}
+.lg .labelText {
+  font-size: var(--font-size-lg);
+}
+
+.labelText {
+  color: var(--color-gray-900);
+  user-select: none;
+}
