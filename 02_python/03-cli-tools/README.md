@@ -39,3 +39,8 @@ Run all tests using pytest:
 ```bash
 pytest
 ```
+
+## Next Steps
+- Implement Jinja2 templates for all scaffold types.
+- Add password strength validation in Vault.
+- Implement data visualization charts in Finance summary.
