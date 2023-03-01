@@ -1,0 +1,7 @@
+*.o
+bin/
+test_correctness
+test_fragmentation
+benchmark
+02-c-memory-allocator.md
+README_TEMPLATE.md
