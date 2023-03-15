@@ -1,26 +1,46 @@
 CC = gcc
 CFLAGS = -std=c17 -Wall -Wextra -Werror
 
-SRC_FIRST = first_fit.c
-SRC_BEST = best_fit.c
-SRC_BUDDY = buddy.c
 
-TEST_CORRECTNESS = tests/test_correctness.c
-TEST_FRAG = tests/test_fragmentation.c
-BENCHMARK = benchmark.c
+BENCHMARKS = benchmark_first 
+TESTS = test_corr_first test_frags_first 
 
-all: benchmark test
+.PHONY: all benchmarks tests clean
 
-benchmark: benchmark.c
-	$(CC) $(CFLAGS) benchmark.c -o benchmark
+all: $(BENCHMARKS) $(TESTS)
 
-test: test_correctness test_fragmentation
+# Compile and run all benchmarks
+benchmarks: $(BENCHMARKS)
+	./benchmark_first
 
-test_correctness: $(TEST_CORRECTNESS)
-	$(CC) $(CFLAGS) $(TEST_CORRECTNESS) -o tests/test_correctness
+# Compile and run all tests
+tests: $(TESTS)
+	./test_corr_first
+	./test_frags_first
 
-test_fragmentation: $(TEST_FRAG)
-	$(CC) $(CFLAGS) $(TEST_FRAG) -o tests/test_fragmentation
+
+# --------------------
+# Benchmarks
+# --------------------
+
+benchmark_first: benchmark.c first_fit.c
+	$(CC) $(CFLAGS) benchmark.c first_fit.c -o benchmark_first
+
+
+# --------------------
+# Tests
+# --------------------
+
+test_corr_first: tests/test_correctness.c first_fit.c
+	$(CC) $(CFLAGS) tests/test_correctness.c first_fit.c -o test_corr_first
+
+test_frags_first: tests/test_fragmentation.c first_fit.c
+	$(CC) $(CFLAGS) tests/test_fragmentation.c first_fit.c -o test_frags_first
+
+# --------------------
+# Clean
+# --------------------
 
 clean:
-	rm -f tests/test_correctness tests/test_fragmentation benchmark *.o
+	rm -f benchmark_first benchmark_best benchmark_buddy \
+	      test_corr_first test_frags_first *.o
