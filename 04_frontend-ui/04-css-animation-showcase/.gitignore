@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Guide (not tracked)
+guide.md
+
+# Build
+dist/
+build/
+
+# Node (if added later)
+node_modules/
