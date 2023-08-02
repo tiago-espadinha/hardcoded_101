@@ -1,0 +1,73 @@
+/* =========================================================
+   variables.css — Design tokens for Motion Lab
+   ========================================================= */
+
+:root {
+  /* Colour palette */
+  --clr-bg:           #06060e;
+  --clr-bg-subtle:    #0d0d1a;
+  --clr-surface:      #12122a;
+  --clr-border:       rgba(255, 255, 255, 0.08);
+
+  --clr-text:         #f0eeff;
+  --clr-text-muted:   #8884aa;
+
+  --clr-accent:       #7c5cfc;
+  --clr-accent-2:     #fc5c8a;
+  --clr-accent-3:     #5ceafc;
+  --clr-accent-4:     #fcb75c;
+
+  --clr-glow:         rgba(124, 92, 252, 0.35);
+  --clr-glow-2:       rgba(252, 92, 138, 0.25);
+
+  /* Typography */
+  --font-display:     'Syne', sans-serif;
+  --font-body:        'DM Sans', sans-serif;
+  --font-mono:        'JetBrains Mono', monospace;
+
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.875rem;
+  --fs-base: 1rem;
+  --fs-lg:   1.25rem;
+  --fs-xl:   1.5rem;
+  --fs-2xl:  2rem;
+  --fs-3xl:  3rem;
+  --fs-4xl:  4.5rem;
+  --fs-5xl:  7rem;
+
+  /* Spacing (4px grid) */
+  --sp-1:   4px;
+  --sp-2:   8px;
+  --sp-3:   12px;
+  --sp-4:   16px;
+  --sp-5:   20px;
+  --sp-6:   24px;
+  --sp-8:   32px;
+  --sp-10:  40px;
+  --sp-12:  48px;
+  --sp-16:  64px;
+  --sp-20:  80px;
+  --sp-24:  96px;
+  --sp-32: 128px;
+
+  /* Radius */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* Motion */
+  --dur-fast:   100ms;
+  --dur-normal: 250ms;
+  --dur-slow:   500ms;
+  --dur-xslow:  800ms;
+
+  --ease-out:       cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out:    cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Layout */
+  --max-width:  1200px;
+  --nav-height: 64px;
+}
