@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Motion Lab — Advanced CSS animation showcase demonstrating GPU-composited transitions, scroll-driven effects, and canvas particle systems." />
+  <title>Motion Lab — CSS Animation Showcase</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div id="cursor" class="hidden" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav role="navigation" aria-label="Main navigation">
+    <span class="nav-logo">motion<span style="color:var(--clr-accent-3)">.</span>lab</span>
+    <ul class="nav-links" role="list">
+      <li><a href="#hero">Hero</a></li>
+      <li><a href="#cards">Features</a></li>
+      <li><a href="#svg-draw">SVG</a></li>
+      <li><a href="#blobs">Blobs</a></li>
+      <li><a href="#stats">Stats</a></li>
+      <li><a href="#h-scroll">Gallery</a></li>
+      <li><a href="#particles-section">Particles</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       SECTION 1 — HERO: Text Reveal
+       ============================================================ -->
+  <section id="hero" aria-label="Hero">
+    <!-- Animated gradient mesh background -->
+    <div class="hero-bg" aria-hidden="true">
+      <div class="orb-3"></div>
+      <div class="orb-4"></div>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-kicker">CSS · JavaScript · Canvas</p>
+
+      <!-- Headline: each word wrapped, JS splits chars into spans -->
+      <h1 class="hero-headline" id="hero-headline" aria-label="Motion is the medium">
+        Motion is<br>the medium
+      </h1>
+
+      <p class="hero-subtitle" id="hero-subtitle">
+        A showcase of advanced CSS animations, scroll-driven effects, and
+        canvas-based interactions — all at a stable 60fps.
+      </p>
+
+      <a href="#cards" class="hero-cta" id="hero-cta">
+        Explore demos
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 3l5 5-5 5M3 8h10" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — FEATURE CARDS: Scroll Trigger
+       ============================================================ -->
+  <section id="cards" aria-label="Features">
+    <div class="cards-header">
+      <p class="section-label">Technique 02</p>
+      <h2 class="section-title">Scroll-triggered<br>stagger entrance</h2>
+      <p class="section-desc">
+        IntersectionObserver fires once per card, incrementing
+        <code>animation-delay</code> by index for a natural cascade.
+      </p>
+    </div>
+
+    <div class="cards-grid" role="list">
+      <article class="card" role="listitem">
+        <div class="card-icon" aria-hidden="true">⚡</div>
+        <h3 class="card-title">GPU Compositing</h3>
+        <p class="card-desc">
+          Only <code>transform</code> and <code>opacity</code> are animated,
+          keeping every transition on the compositor thread and away from the main thread.
+        </p>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="card-icon" aria-hidden="true">🔭</div>
+        <h3 class="card-title">IntersectionObserver</h3>
+        <p class="card-desc">
+          Scroll visibility detected without scroll event listeners.
+          Elements are unobserved after triggering for zero ongoing overhead.
+        </p>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="card-icon" aria-hidden="true">🌊</div>
+        <h3 class="card-title">Lerp Interpolation</h3>
+        <p class="card-desc">
+          The cursor follow effect uses linear interpolation in a
+          requestAnimationFrame loop — the foundation of smooth procedural motion.
+        </p>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="card-icon" aria-hidden="true">🎨</div>
+        <h3 class="card-title">CSS clip-path Morphing</h3>
+        <p class="card-desc">
+          Four blobs morph between polygon shapes using pure CSS keyframes.
+          Each runs on a different duration to avoid synchronisation artifacts.
+        </p>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="card-icon" aria-hidden="true">✏️</div>
+        <h3 class="card-title">SVG Path Drawing</h3>
+        <p class="card-desc">
+          A circuit-board SVG draws itself via <code>stroke-dashoffset</code>
+          transitions, sequenced with per-element <code>transition-delay</code>.
+        </p>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="card-icon" aria-hidden="true">🌐</div>
+        <h3 class="card-title">Canvas Particle System</h3>
+        <p class="card-desc">
+          80 particles rendered in Canvas 2D, connected by proximity lines
+          and repelled by the cursor — within a strict 4ms per-frame budget.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — SVG PATH DRAWING
+       ============================================================ -->
+  <section id="svg-draw" aria-label="SVG path drawing">
+    <p class="section-label">Technique 03</p>
+    <h2 class="section-title">Self-drawing SVG</h2>
+    <p class="section-desc">
+      Every path animates from <code>stroke-dashoffset</code> equal to its own
+      length down to zero, creating the illusion of being drawn in real time.
+    </p>
+
+    <div class="svg-wrapper" data-reveal>
+      <!-- hero.svg inlined for stroke-dashoffset animation -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none"
+           class="circuit-svg" width="100%" height="auto" style="max-width:800px"
+           aria-label="Self-drawing circuit board" role="img">
+        <line x1="40"  y1="250" x2="760" y2="250" stroke="#7c5cfc" stroke-width="1.5"/>
+        <line x1="40"  y1="150" x2="400" y2="150" stroke="#5ceafc" stroke-width="1"/>
+        <line x1="400" y1="350" x2="760" y2="350" stroke="#5ceafc" stroke-width="1"/>
+        <line x1="200" y1="150" x2="200" y2="250" stroke="#7c5cfc" stroke-width="1.5"/>
+        <line x1="400" y1="150" x2="400" y2="350" stroke="#7c5cfc" stroke-width="2"/>
+        <line x1="600" y1="250" x2="600" y2="350" stroke="#7c5cfc" stroke-width="1.5"/>
+        <polyline points="120,250 140,220 200,220 200,150" stroke="#fc5c8a" stroke-width="1"/>
+        <polyline points="680,250 700,280 700,350 760,350" stroke="#fc5c8a" stroke-width="1"/>
+        <polyline points="300,250 320,200 380,200 400,150" stroke="#fcb75c" stroke-width="1"/>
+        <polyline points="400,350 440,380 520,380 560,350" stroke="#fcb75c" stroke-width="1"/>
+        <polyline points="500,250 500,180 560,180 580,160 680,160" stroke="#5ceafc" stroke-width="1"/>
+        <polyline points="320,250 320,320 260,320 240,340 160,340" stroke="#5ceafc" stroke-width="1"/>
+        <rect x="360" y="220" width="80" height="60" rx="4" stroke="#7c5cfc" stroke-width="2" fill="rgba(124,92,252,0.08)"/>
+        <line x1="360" y1="235" x2="340" y2="235" stroke="#7c5cfc" stroke-width="1.5"/>
+        <line x1="360" y1="250" x2="340" y2="250" stroke="#7c5cfc" stroke-width="1.5"/>
+        <line x1="360" y1="265" x2="340" y2="265" stroke="#7c5cfc" stroke-width="1.5"/>
+        <line x1="440" y1="235" x2="460" y2="235" stroke="#7c5cfc" stroke-width="1.5"/>
+        <line x1="440" y1="250" x2="460" y2="250" stroke="#7c5cfc" stroke-width="1.5"/>
+        <line x1="440" y1="265" x2="460" y2="265" stroke="#7c5cfc" stroke-width="1.5"/>
+        <rect x="180" y="244" width="20" height="12" rx="2" stroke="#fc5c8a" stroke-width="1" fill="rgba(252,92,138,0.12)"/>
+        <rect x="580" y="244" width="20" height="12" rx="2" stroke="#fc5c8a" stroke-width="1" fill="rgba(252,92,138,0.12)"/>
+        <rect x="390" y="174" width="20" height="12" rx="2" stroke="#fcb75c" stroke-width="1" fill="rgba(252,183,92,0.12)"/>
+        <circle cx="280" cy="250" r="8" stroke="#5ceafc" stroke-width="1.5" fill="rgba(92,234,252,0.08)"/>
+        <circle cx="520" cy="250" r="8" stroke="#5ceafc" stroke-width="1.5" fill="rgba(92,234,252,0.08)"/>
+        <circle cx="200" cy="250" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+        <circle cx="400" cy="150" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+        <circle cx="600" cy="350" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+        <circle cx="660" cy="120" r="5" stroke="#fc5c8a" stroke-width="1.5" fill="rgba(252,92,138,0.15)"/>
+        <circle cx="700" cy="100" r="5" stroke="#fc5c8a" stroke-width="1.5" fill="rgba(252,92,138,0.15)"/>
+        <circle cx="740" cy="130" r="5" stroke="#fc5c8a" stroke-width="1.5" fill="rgba(252,92,138,0.15)"/>
+        <line x1="660" y1="120" x2="700" y2="100" stroke="rgba(252,92,138,0.4)" stroke-width="1"/>
+        <line x1="700" y1="100" x2="740" y2="130" stroke="rgba(252,92,138,0.4)" stroke-width="1"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — MORPHING BLOBS
+       ============================================================ -->
+  <section id="blobs" aria-label="Morphing shapes">
+    <p class="section-label">Technique 04</p>
+    <h2 class="section-title">CSS clip-path<br>morphing</h2>
+    <p class="section-desc">
+      Pure CSS keyframes animate <code>clip-path</code> polygon points.
+      Each blob runs on a prime-number duration (7s, 9s, 11s, 13s) to
+      prevent visual synchronisation.
+    </p>
+
+    <div class="blobs-stage" aria-hidden="true">
+      <div class="blob blob-1">
+        <div class="blob-inner" style="background: linear-gradient(135deg, #7c5cfc, #5ceafc);"></div>
+      </div>
+      <div class="blob blob-2">
+        <div class="blob-inner" style="background: linear-gradient(135deg, #fc5c8a, #fcb75c);"></div>
+      </div>
+      <div class="blob blob-3">
+        <div class="blob-inner" style="background: linear-gradient(135deg, #5ceafc, #7c5cfc);"></div>
+      </div>
+      <div class="blob blob-4">
+        <div class="blob-inner" style="background: linear-gradient(135deg, #fcb75c, #fc5c8a);"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — COUNTING NUMBERS
+       ============================================================ -->
+  <section id="stats" aria-label="Statistics">
+    <p class="section-label">Technique 05</p>
+    <h2 class="section-title">Animated counters</h2>
+    <p class="section-desc">
+      Numbers count from zero using <code>requestAnimationFrame</code>
+      and an ease-out-cubic easing function over 1.5 seconds.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number"
+             data-counter
+             data-target="10000"
+             data-suffix="+"
+             aria-label="Over 10,000 users">0</div>
+        <p class="stat-label">Active Users</p>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-number"
+             data-counter
+             data-target="99.9"
+             data-suffix="%"
+             data-decimals="1"
+             aria-label="99.9% uptime">0</div>
+        <p class="stat-label">Uptime SLA</p>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-number"
+             data-counter
+             data-target="50"
+             data-suffix="ms"
+             aria-label="50 millisecond latency">0</div>
+        <p class="stat-label">Avg. Latency</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — HORIZONTAL SCROLL GALLERY
+       ============================================================ -->
+  <div id="h-scroll" style="height: 400vh;" aria-label="Horizontal gallery">
+    <div class="h-scroll-sticky" role="region" aria-label="Project gallery">
+      <!-- Section header inside sticky container -->
+      <div style="position:absolute; top:var(--sp-12); left:var(--sp-8); z-index:2;">
+        <p class="section-label">Technique 06</p>
+        <h2 class="section-title">Horizontal gallery</h2>
+      </div>
+
+      <div class="h-scroll-inner" role="list">
+        <div class="gallery-card" role="listitem">
+          <div class="gallery-card-thumb" aria-hidden="true">🏗️</div>
+          <h3 class="gallery-card-title">Architecture</h3>
+          <p class="gallery-card-meta">System design</p>
+        </div>
+        <div class="gallery-card" role="listitem">
+          <div class="gallery-card-thumb" aria-hidden="true">🔬</div>
+          <h3 class="gallery-card-title">Research</h3>
+          <p class="gallery-card-meta">Deep analysis</p>
+        </div>
+        <div class="gallery-card" role="listitem">
+          <div class="gallery-card-thumb" aria-hidden="true">🚀</div>
+          <h3 class="gallery-card-title">Launch</h3>
+          <p class="gallery-card-meta">Product deploy</p>
+        </div>
+        <div class="gallery-card" role="listitem">
+          <div class="gallery-card-thumb" aria-hidden="true">🎯</div>
+          <h3 class="gallery-card-title">Precision</h3>
+          <p class="gallery-card-meta">Performance tuning</p>
+        </div>
+        <div class="gallery-card" role="listitem">
+          <div class="gallery-card-thumb" aria-hidden="true">🌈</div>
+          <h3 class="gallery-card-title">Colour</h3>
+          <p class="gallery-card-meta">Design systems</p>
+        </div>
+        <div class="gallery-card" role="listitem">
+          <div class="gallery-card-thumb" aria-hidden="true">🔐</div>
+          <h3 class="gallery-card-title">Security</h3>
+          <p class="gallery-card-meta">Auth infrastructure</p>
+        </div>
+        <div class="gallery-card" role="listitem">
+          <div class="gallery-card-thumb" aria-hidden="true">📡</div>
+          <h3 class="gallery-card-title">Network</h3>
+          <p class="gallery-card-meta">Edge delivery</p>
+        </div>
+        <div class="gallery-card" role="listitem">
+          <div class="gallery-card-thumb" aria-hidden="true">💡</div>
+          <h3 class="gallery-card-title">Insight</h3>
+          <p class="gallery-card-meta">Data analytics</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 7+8 — PARTICLE BACKGROUND + CURSOR FOLLOW
+       ============================================================ -->
+  <section id="particles-section" aria-label="Particle background">
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+    <div class="particles-content">
+      <p class="section-label">Technique 07 + 08</p>
+      <h2 class="section-title" style="max-width:14ch">Particles &amp; cursor follow</h2>
+      <p class="section-desc" style="margin-bottom: var(--sp-8)">
+        80 canvas particles form a reactive network — mouse proximity
+        repels them while the glowing cursor trails behind using lerp.
+        Combined draw budget stays under 4ms per frame.
+      </p>
+
+      <div style="display:flex; gap: var(--sp-3); flex-wrap:wrap;">
+        <span class="tag">requestAnimationFrame</span>
+        <span class="tag">Canvas 2D</span>
+        <span class="tag">linear interpolation</span>
+        <span class="tag">pointer-events: none</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <p>motion.lab — CSS animations without libraries &nbsp;·&nbsp;
+       <span style="color: var(--clr-accent)">60fps</span> · GPU-composited · accessible</p>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS (deferred, non-blocking)
+       ============================================================ -->
+  <script defer src="js/cursor.js"></script>
+  <script defer src="js/scroll.js"></script>
+  <script defer src="js/counter.js"></script>
+  <script defer src="js/horizontal.js"></script>
+  <script defer src="js/particles.js"></script>
+
+  <!-- Hero text-reveal: split headline chars into spans -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const headline = document.getElementById('hero-headline');
+      if (!headline) return;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReduced) {
+        // Skip animation entirely
+        return;
+      }
+
+      // Collect text nodes (preserving <br> elements)
+      const nodes = Array.from(headline.childNodes);
+      headline.innerHTML = '';
+
+      let charIndex = 0;
+      const BASE_DELAY_MS = 40;
+      const START_DELAY_MS = 600; // starts after kicker fades in
+
+      nodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          node.textContent.split('').forEach((ch) => {
+            const span = document.createElement('span');
+            span.className = 'char' + (ch === ' ' ? ' space' : '');
+            span.textContent = ch === ' ' ? '\u00A0' : ch;
+            span.style.animationDelay = `${START_DELAY_MS + charIndex * BASE_DELAY_MS}ms`;
+            headline.appendChild(span);
+            charIndex++;
+          });
+        } else {
+          headline.appendChild(node.cloneNode(true));
+        }
+      });
+
+      // Reveal subtitle and CTA after headline finishes
+      const totalDuration = START_DELAY_MS + charIndex * BASE_DELAY_MS + 600;
+      const subtitle = document.getElementById('hero-subtitle');
+      const cta = document.getElementById('hero-cta');
+
+      if (subtitle) subtitle.style.animationDelay = `${totalDuration}ms`;
+      if (cta)      cta.style.animationDelay      = `${totalDuration + 200}ms`;
+    });
+  </script>
+
+</body>
+</html>
