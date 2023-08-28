@@ -439,3 +439,23 @@ footer {
   font-size: var(--fs-sm);
   font-family: var(--font-mono);
 }
+
+/* ============================================================
+   PERFORMANCE — will-change hints for GPU promotion
+   Only applied where actually needed (not blanket)
+   ============================================================ */
+.card {
+  will-change: transform, opacity;
+}
+
+.blob-inner {
+  will-change: clip-path, transform;
+}
+
+.h-scroll-inner {
+  will-change: transform;
+}
+
+#cursor {
+  will-change: transform;
+}
