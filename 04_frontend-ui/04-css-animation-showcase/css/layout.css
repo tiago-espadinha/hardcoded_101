@@ -459,3 +459,44 @@ footer {
 #cursor {
   will-change: transform;
 }
+
+/* ============================================================
+   RESPONSIVE — mobile adjustments
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+
+  .hero-headline {
+    font-size: clamp(var(--fs-2xl), 12vw, var(--fs-4xl));
+  }
+
+  .blobs-stage {
+    gap: var(--sp-4);
+  }
+
+  .blob {
+    width: 120px;
+    height: 120px;
+  }
+
+  .gallery-card {
+    width: 280px;
+    height: 380px;
+  }
+
+  #particles-section {
+    padding: var(--sp-16) var(--sp-6);
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding-left: var(--sp-5);
+    padding-right: var(--sp-5);
+  }
+
+  .hero-cta {
+    padding: var(--sp-3) var(--sp-6);
+    font-size: var(--fs-sm);
+  }
+}
