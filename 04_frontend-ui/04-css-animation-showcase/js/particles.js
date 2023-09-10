@@ -13,6 +13,7 @@
 
   const canvas = document.getElementById('particles-canvas');
   if (!canvas) return;
+  const section = canvas.parentElement;
 
   // Respect reduced-motion preference
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -116,16 +117,21 @@
 
   window.addEventListener('resize', resize, { passive: true });
 
+  if (typeof ResizeObserver !== 'undefined') {
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvas.parentElement || document.body);
+  }
+
   // ----------------------------------------------------------------
   // Mouse tracking
   // ----------------------------------------------------------------
-  canvas.addEventListener('mousemove', (e) => {
+  section?.addEventListener('pointermove', (e) => {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   }, { passive: true });
 
-  canvas.addEventListener('mouseleave', () => {
+  section?.addEventListener('pointerleave', () => {
     mouse.x = -999;
     mouse.y = -999;
   });

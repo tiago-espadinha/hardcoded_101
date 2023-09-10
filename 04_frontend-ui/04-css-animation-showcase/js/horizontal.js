@@ -20,25 +20,30 @@
   // Skip for reduced-motion users
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     // Show a standard vertical layout instead
+    section.style.height = 'auto';
+    sticky.style.position = 'relative';
+    sticky.style.height = 'auto';
     inner.style.flexWrap = 'wrap';
+    inner.style.transform = 'none';
     return;
   }
 
   function update() {
     const sectionTop    = section.getBoundingClientRect().top + window.scrollY;
-    const sectionHeight = section.offsetHeight;
     const viewH         = window.innerHeight;
+    const viewW         = sticky.clientWidth;
+    const maxTranslate = Math.max(0, inner.scrollWidth - viewW);
+
+    // Match the vertical scroll range to the gallery's actual horizontal travel.
+    section.style.height = `${viewH + maxTranslate}px`;
+    const sectionHeight = section.offsetHeight;
 
     // Scroll progress within the sticky range [0, 1]
     const scrolled  = window.scrollY - sectionTop;
-    const range     = sectionHeight - viewH;
+    const range     = Math.max(1, sectionHeight - viewH);
     const progress  = Math.max(0, Math.min(1, scrolled / range));
 
-    // Max translation: inner width minus viewport width
-    const innerWidth  = inner.scrollWidth;
-    const maxTranslate = -(innerWidth - window.innerWidth) + 96; // 96px padding
-
-    const translateX = progress * maxTranslate;
+    const translateX = progress * -maxTranslate;
 
     inner.style.transform = `translateX(${translateX}px)`;
   }
