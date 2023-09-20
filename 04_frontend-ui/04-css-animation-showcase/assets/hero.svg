@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none"
+     class="circuit-svg" width="800" height="500"
+     aria-label="Circuit board illustration" role="img">
+
+  <!-- Main horizontal rails -->
+  <line x1="40"  y1="250" x2="760" y2="250" stroke="#7c5cfc" stroke-width="1.5"/>
+  <line x1="40"  y1="150" x2="400" y2="150" stroke="#5ceafc" stroke-width="1"/>
+  <line x1="400" y1="350" x2="760" y2="350" stroke="#5ceafc" stroke-width="1"/>
+
+  <!-- Vertical drops -->
+  <line x1="200" y1="150" x2="200" y2="250" stroke="#7c5cfc" stroke-width="1.5"/>
+  <line x1="400" y1="150" x2="400" y2="350" stroke="#7c5cfc" stroke-width="2"/>
+  <line x1="600" y1="250" x2="600" y2="350" stroke="#7c5cfc" stroke-width="1.5"/>
+
+  <!-- Diagonal traces -->
+  <polyline points="120,250 140,220 200,220 200,150" stroke="#fc5c8a" stroke-width="1"/>
+  <polyline points="680,250 700,280 700,350 760,350" stroke="#fc5c8a" stroke-width="1"/>
+  <polyline points="300,250 320,200 380,200 400,150" stroke="#fcb75c" stroke-width="1"/>
+  <polyline points="400,350 440,380 520,380 560,350" stroke="#fcb75c" stroke-width="1"/>
+
+  <!-- Branch off main rail -->
+  <polyline points="500,250 500,180 560,180 580,160 680,160" stroke="#5ceafc" stroke-width="1"/>
+  <polyline points="320,250 320,320 260,320 240,340 160,340" stroke="#5ceafc" stroke-width="1"/>
+
+  <!-- IC chip — centre -->
+  <rect x="360" y="220" width="80" height="60" rx="4"
+        stroke="#7c5cfc" stroke-width="2" fill="rgba(124,92,252,0.08)"/>
+  <!-- IC pins -->
+  <line x1="360" y1="235" x2="340" y2="235" stroke="#7c5cfc" stroke-width="1.5"/>
+  <line x1="360" y1="250" x2="340" y2="250" stroke="#7c5cfc" stroke-width="1.5"/>
+  <line x1="360" y1="265" x2="340" y2="265" stroke="#7c5cfc" stroke-width="1.5"/>
+  <line x1="440" y1="235" x2="460" y2="235" stroke="#7c5cfc" stroke-width="1.5"/>
+  <line x1="440" y1="250" x2="460" y2="250" stroke="#7c5cfc" stroke-width="1.5"/>
+  <line x1="440" y1="265" x2="460" y2="265" stroke="#7c5cfc" stroke-width="1.5"/>
+
+  <!-- Chip label -->
+  <text x="400" y="255" text-anchor="middle" font-family="JetBrains Mono, monospace"
+        font-size="10" fill="#7c5cfc" opacity="0.7">ML-01</text>
+
+  <!-- Resistors (small rectangles on traces) -->
+  <rect x="180" y="244" width="20" height="12" rx="2"
+        stroke="#fc5c8a" stroke-width="1" fill="rgba(252,92,138,0.12)"/>
+  <rect x="580" y="244" width="20" height="12" rx="2"
+        stroke="#fc5c8a" stroke-width="1" fill="rgba(252,92,138,0.12)"/>
+  <rect x="390" y="174" width="20" height="12" rx="2"
+        stroke="#fcb75c" stroke-width="1" fill="rgba(252,183,92,0.12)"/>
+
+  <!-- Capacitors (circles on traces) -->
+  <circle cx="280" cy="250" r="8" stroke="#5ceafc" stroke-width="1.5" fill="rgba(92,234,252,0.08)"/>
+  <circle cx="520" cy="250" r="8" stroke="#5ceafc" stroke-width="1.5" fill="rgba(92,234,252,0.08)"/>
+  <circle cx="400" cy="180" r="6" stroke="#5ceafc" stroke-width="1" fill="rgba(92,234,252,0.08)"/>
+
+  <!-- Via dots -->
+  <circle cx="200" cy="250" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+  <circle cx="200" cy="150" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+  <circle cx="400" cy="150" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+  <circle cx="400" cy="350" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+  <circle cx="600" cy="250" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+  <circle cx="600" cy="350" r="5" stroke="#7c5cfc" stroke-width="1.5" fill="#06060e"/>
+
+  <!-- Connector pads -->
+  <rect x="32"  y="243" width="16" height="14" rx="2"
+        stroke="#fcb75c" stroke-width="1.5" fill="rgba(252,183,92,0.1)"/>
+  <rect x="752" y="243" width="16" height="14" rx="2"
+        stroke="#fcb75c" stroke-width="1.5" fill="rgba(252,183,92,0.1)"/>
+
+  <!-- Corner decorations -->
+  <polyline points="40,40 40,80 80,80"
+            stroke="rgba(124,92,252,0.3)" stroke-width="1"/>
+  <polyline points="760,40 760,80 720,80"
+            stroke="rgba(124,92,252,0.3)" stroke-width="1"/>
+  <polyline points="40,460 40,420 80,420"
+            stroke="rgba(124,92,252,0.3)" stroke-width="1"/>
+  <polyline points="760,460 760,420 720,420"
+            stroke="rgba(124,92,252,0.3)" stroke-width="1"/>
+
+  <!-- Network node cluster — top right -->
+  <circle cx="660" cy="120" r="5" stroke="#fc5c8a" stroke-width="1.5" fill="rgba(252,92,138,0.15)"/>
+  <circle cx="700" cy="100" r="5" stroke="#fc5c8a" stroke-width="1.5" fill="rgba(252,92,138,0.15)"/>
+  <circle cx="740" cy="130" r="5" stroke="#fc5c8a" stroke-width="1.5" fill="rgba(252,92,138,0.15)"/>
+  <circle cx="715" cy="140" r="5" stroke="#fc5c8a" stroke-width="1.5" fill="rgba(252,92,138,0.15)"/>
+  <line x1="660" y1="120" x2="700" y2="100" stroke="rgba(252,92,138,0.4)" stroke-width="1"/>
+  <line x1="700" y1="100" x2="740" y2="130" stroke="rgba(252,92,138,0.4)" stroke-width="1"/>
+  <line x1="740" y1="130" x2="715" y2="140" stroke="rgba(252,92,138,0.4)" stroke-width="1"/>
+  <line x1="715" y1="140" x2="660" y2="120" stroke="rgba(252,92,138,0.4)" stroke-width="1"/>
+  <line x1="660" y1="120" x2="740" y2="130" stroke="rgba(252,92,138,0.2)" stroke-width="1"/>
+
+  <!-- Network node cluster — bottom left -->
+  <circle cx="80"  cy="380" r="5" stroke="#fcb75c" stroke-width="1.5" fill="rgba(252,183,92,0.15)"/>
+  <circle cx="120" cy="400" r="5" stroke="#fcb75c" stroke-width="1.5" fill="rgba(252,183,92,0.15)"/>
+  <circle cx="60"  cy="420" r="5" stroke="#fcb75c" stroke-width="1.5" fill="rgba(252,183,92,0.15)"/>
+  <circle cx="100" cy="360" r="5" stroke="#fcb75c" stroke-width="1.5" fill="rgba(252,183,92,0.15)"/>
+  <line x1="80"  y1="380" x2="120" y2="400" stroke="rgba(252,183,92,0.4)" stroke-width="1"/>
+  <line x1="120" y1="400" x2="60"  y2="420" stroke="rgba(252,183,92,0.4)" stroke-width="1"/>
+  <line x1="60"  y1="420" x2="80"  y2="380" stroke="rgba(252,183,92,0.4)" stroke-width="1"/>
+  <line x1="100" y1="360" x2="80"  y2="380" stroke="rgba(252,183,92,0.4)" stroke-width="1"/>
+  <line x1="100" y1="360" x2="120" y2="400" stroke="rgba(252,183,92,0.2)" stroke-width="1"/>
+
+</svg>
