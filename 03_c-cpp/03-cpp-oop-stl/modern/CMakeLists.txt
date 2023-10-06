@@ -1,0 +1,4 @@
+add_executable(01_smart_pointers 01_smart_pointers.cpp)
+add_executable(02_stl_algorithms 02_stl_algorithms.cpp)
+add_executable(03_move_semantics 03_move_semantics.cpp)
+add_executable(04_lambdas_and_functional 04_lambdas_and_functional.cpp)
