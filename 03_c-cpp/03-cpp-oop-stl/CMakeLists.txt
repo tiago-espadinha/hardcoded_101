@@ -7,3 +7,5 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 
 add_subdirectory(oop)
 add_subdirectory(modern)
+add_subdirectory(cpp_hash_map)
+add_subdirectory(cpp_linked_list)
