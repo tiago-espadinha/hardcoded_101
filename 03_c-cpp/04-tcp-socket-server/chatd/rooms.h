@@ -29,5 +29,6 @@ void rooms_broadcast(int sender_fd, const char *message, const char *room_name);
 void rooms_private_msg(int sender_fd, const char *target_nick, const char *message);
 void rooms_set_nick(int client_fd, const char *nick);
 void rooms_remove_client(int client_fd);
+void rooms_get_current_room(int client_fd, char *buf);
 
 #endif

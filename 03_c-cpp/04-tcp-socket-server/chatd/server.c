@@ -28,7 +28,39 @@ void handle_client(void *arg) {
         if (n <= 0) break;
         buf[n] = '\0';
         
-        // Protocol handling will be added in next commit
+        // Basic line trimming
+        char *line = strtok(buf, "\r\n");
+        while (line) {
+            if (line[0] == '/') {
+                if (strncmp(line, "/nick ", 6) == 0) {
+                    rooms_set_nick(client_fd, line + 6);
+                } else if (strncmp(line, "/join ", 6) == 0) {
+                    rooms_join(client_fd, line + 6);
+                } else if (strcmp(line, "/leave") == 0) {
+                    rooms_leave(client_fd);
+                    rooms_join(client_fd, "general");
+                } else if (strcmp(line, "/list") == 0) {
+                    rooms_list(client_fd);
+                } else if (strcmp(line, "/who") == 0) {
+                    rooms_who(client_fd);
+                } else if (strncmp(line, "/msg ", 5) == 0) {
+                    char *target = line + 5;
+                    char *msg = strchr(target, ' ');
+                    if (msg) {
+                        *msg = '\0';
+                        rooms_private_msg(client_fd, target, msg + 1);
+                    }
+                }
+            } else {
+                // Broadcast to current room
+                char current_room[32] = {0};
+                rooms_get_current_room(client_fd, current_room);
+                if (current_room[0]) {
+                    rooms_broadcast(client_fd, line, current_room);
+                }
+            }
+            line = strtok(NULL, "\r\n");
+        }
     }
 
     rooms_remove_client(client_fd);

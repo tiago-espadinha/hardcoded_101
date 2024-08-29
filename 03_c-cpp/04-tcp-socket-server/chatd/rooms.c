@@ -234,3 +234,14 @@ void rooms_remove_client(int client_fd) {
     }
     pthread_mutex_unlock(&clients_lock);
 }
+
+void rooms_get_current_room(int client_fd, char *buf) {
+    pthread_mutex_lock(&clients_lock);
+    for (int i = 0; i < MAX_CLIENTS; i++) {
+        if (clients[i].fd == client_fd) {
+            strcpy(buf, clients[i].current_room);
+            break;
+        }
+    }
+    pthread_mutex_unlock(&clients_lock);
+}
