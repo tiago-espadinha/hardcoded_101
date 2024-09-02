@@ -1,0 +1,40 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Guide (not tracked)
+guide.md
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+storybook-static/
+
+# Generated token artifacts (rebuilt by Style Dictionary)
+packages/tokens/dist/
+
+# Cache
+.turbo/
+.cache/
+*.tsbuildinfo
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+coverage/
