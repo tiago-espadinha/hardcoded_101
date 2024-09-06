@@ -1,0 +1,19 @@
+{
+  "name": "@aurora-ds/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for Aurora DS — processed by Style Dictionary",
+  "main": "./dist/tokens.ts",
+  "exports": {
+    ".": "./dist/tokens.ts",
+    "./css": "./dist/tokens.css",
+    "./tailwind": "./dist/tailwind-tokens.js"
+  },
+  "scripts": {
+    "build": "style-dictionary build --config style-dictionary.config.js",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "style-dictionary": "^3.9.0"
+  },
+  "files": ["dist"]
+}
