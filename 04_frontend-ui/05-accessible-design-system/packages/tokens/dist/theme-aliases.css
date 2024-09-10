@@ -1,0 +1,50 @@
+:root {
+  --aurora-color-background-default: #f8fafc;
+  --aurora-color-background-subtle: #f1f5f9;
+  --aurora-color-background-muted: #e2e8f0;
+  --aurora-color-foreground-default: #0f172a;
+  --aurora-color-foreground-muted: #64748b;
+  --aurora-color-foreground-subtle: #94a3b8;
+  --aurora-color-brand-default: #2563eb;
+  --aurora-color-brand-hover: #1d4ed8;
+  --aurora-color-brand-subtle: #eff6ff;
+  --aurora-color-success-default: #16a34a;
+  --aurora-color-success-subtle: #f0fdf4;
+  --aurora-color-warning-default: #f59e0b;
+  --aurora-color-warning-subtle: #fffbeb;
+  --aurora-color-error-default: #dc2626;
+  --aurora-color-error-subtle: #fef2f2;
+  --aurora-color-border-default: #e2e8f0;
+  --aurora-color-border-strong: #cbd5e1;
+  --aurora-color-focus-ring: #3b82f6;
+  --aurora-color-overlay-default: rgba(0, 0, 0, 0.5);
+  --aurora-color-icon-default: #97e1eb;
+  --aurora-color-icon-subtle: #f5fcfd;
+  --aurora-font-family-sans: var(--aurora-typography-font-family-sans);
+  --aurora-font-family-mono: var(--aurora-typography-font-family-mono);
+  --aurora-font-family-display: var(--aurora-typography-font-family-display);
+}
+
+[data-theme="dark"] {
+  --aurora-color-background-default: #020617;
+  --aurora-color-background-subtle: #0f172a;
+  --aurora-color-background-muted: #1e293b;
+  --aurora-color-foreground-default: #f8fafc;
+  --aurora-color-foreground-muted: #94a3b8;
+  --aurora-color-foreground-subtle: #475569;
+  --aurora-color-brand-default: #60a5fa;
+  --aurora-color-brand-hover: #93c5fd;
+  --aurora-color-brand-subtle: #172554;
+  --aurora-color-success-default: #4ade80;
+  --aurora-color-success-subtle: #052e16;
+  --aurora-color-warning-default: #fcd34d;
+  --aurora-color-warning-subtle: #451a03;
+  --aurora-color-error-default: #f87171;
+  --aurora-color-error-subtle: #450a0a;
+  --aurora-color-border-default: #1e293b;
+  --aurora-color-border-strong: #334155;
+  --aurora-color-focus-ring: #60a5fa;
+  --aurora-color-overlay-default: rgba(0, 0, 0, 0.7);
+  --aurora-color-icon-default: #a1e4ed;
+  --aurora-color-icon-subtle: #0f1617;
+}

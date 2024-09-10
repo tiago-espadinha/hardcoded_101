@@ -6,13 +6,18 @@
   "exports": {
     ".": "./dist/tokens.ts",
     "./css": "./dist/tokens.css",
+    "./theme": "./dist/theme-aliases.css",
     "./tailwind": "./dist/tailwind-tokens.js"
   },
   "scripts": {
     "build": "style-dictionary build --config style-dictionary.config.js",
-    "clean": "rm -rf dist"
+    "watch": "style-dictionary build --config style-dictionary.config.js --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint style-dictionary.config.js"
   },
   "devDependencies": {
+    "eslint": "^8.57.0",
     "style-dictionary": "^3.9.0"
   },
   "files": ["dist"]

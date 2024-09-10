@@ -10,15 +10,11 @@ node_modules/
 .pnp
 .pnp.js
 
-# Build outputs
-dist/
-build/
-.next/
-out/
+# Build outputs (apps only — token dist is committed)
+apps/**/dist/
+apps/**/.next/
+apps/**/out/
 storybook-static/
-
-# Generated token artifacts (rebuilt by Style Dictionary)
-packages/tokens/dist/
 
 # Cache
 .turbo/
