@@ -67,7 +67,15 @@ void handle_client(void *arg) {
     close(client_fd);
 }
 
+void sig_handler(int sig) {
+    (void)sig;
+    shutdown_flag = 1;
+}
+
 void start_server(int port) {
+    signal(SIGINT, sig_handler);
+    signal(SIGTERM, sig_handler);
+
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
     int opt = 1;
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
