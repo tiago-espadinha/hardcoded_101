@@ -1,0 +1,7 @@
+{
+  "extends": "@aurora-ds/tsconfig/base.json",
+  "compilerOptions": {
+    "composite": true
+  },
+  "include": ["src"]
+}

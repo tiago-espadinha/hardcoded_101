@@ -1,0 +1,21 @@
+{
+  "name": "@aurora-ds/icons",
+  "version": "0.1.0",
+  "description": "Aurora DS SVG icon library — typed React components",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@aurora-ds/tsconfig": "workspace:*",
+    "@types/react": "^18.2.0",
+    "typescript": "^5.3.0"
+  },
+  "files": ["src"]
+}
