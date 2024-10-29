@@ -15,6 +15,7 @@ apps/**/dist/
 apps/**/.next/
 apps/**/out/
 storybook-static/
+apps/storybook/src/styles/generated.css
 
 # Cache
 .turbo/
