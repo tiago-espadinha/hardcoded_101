@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-<<<<<<< HEAD
 import React from 'react';
 import { Badge, Avatar, Spinner, ProgressBar, Skeleton, Stack, Inline } from '@aurora-ds/components';
 
@@ -14,17 +13,6 @@ export default meta;
 
 export const BadgeStories: StoryObj = {
   render: () => <Badge>Badge</Badge>,
-=======
-import { Badge, Avatar, Spinner, ProgressBar, Skeleton, Stack, Inline } from '@aurora-ds/components';
-
-// ── Badge ─────────────────────────────────────────────────────────────────────
-
-export const BadgeStories: Meta<typeof Badge> = {
-  title: 'Simple/Badge',
-  component: Badge,
-  tags: ['autodocs'],
-  args: { children: 'Badge' },
->>>>>>> 1ef8b9a (docs(storybook): add Button stories — playground, variants, intents, sizes, icons, states, a11y)
 };
 
 export const BadgeVariants: StoryObj<typeof Badge> = {
@@ -51,16 +39,8 @@ export const BadgeVariants: StoryObj<typeof Badge> = {
 
 // ── Avatar ────────────────────────────────────────────────────────────────────
 
-<<<<<<< HEAD
 export const AvatarStories: StoryObj = {
   render: () => <Avatar alt="Jane Doe" fallback="JD" />,
-=======
-export const AvatarStories: Meta<typeof Avatar> = {
-  title: 'Simple/Avatar',
-  component: Avatar,
-  tags: ['autodocs'],
-  args: { alt: 'Jane Doe' },
->>>>>>> 1ef8b9a (docs(storybook): add Button stories — playground, variants, intents, sizes, icons, states, a11y)
 };
 
 export const AvatarSizes: StoryObj<typeof Avatar> = {
@@ -85,15 +65,8 @@ export const AvatarWithImage: StoryObj<typeof Avatar> = {
 
 // ── Spinner ───────────────────────────────────────────────────────────────────
 
-<<<<<<< HEAD
 export const SpinnerStories: StoryObj = {
   render: () => <Spinner label="Loading" />,
-=======
-export const SpinnerStories: Meta<typeof Spinner> = {
-  title: 'Simple/Spinner',
-  component: Spinner,
-  tags: ['autodocs'],
->>>>>>> 1ef8b9a (docs(storybook): add Button stories — playground, variants, intents, sizes, icons, states, a11y)
 };
 
 export const SpinnerSizes: StoryObj<typeof Spinner> = {
@@ -108,17 +81,8 @@ export const SpinnerSizes: StoryObj<typeof Spinner> = {
 
 // ── ProgressBar ───────────────────────────────────────────────────────────────
 
-<<<<<<< HEAD
 export const ProgressBarStories: StoryObj = {
   render: () => <ProgressBar value={60} label="Progress" />,
-=======
-export const ProgressBarStories: Meta<typeof ProgressBar> = {
-  title: 'Simple/ProgressBar',
-  component: ProgressBar,
-  tags: ['autodocs'],
-  args: { value: 60, label: 'Progress' },
-  argTypes: { value: { control: { type: 'range', min: 0, max: 100, step: 1 } } },
->>>>>>> 1ef8b9a (docs(storybook): add Button stories — playground, variants, intents, sizes, icons, states, a11y)
 };
 
 export const ProgressBarIntents: StoryObj<typeof ProgressBar> = {
@@ -133,15 +97,8 @@ export const ProgressBarIntents: StoryObj<typeof ProgressBar> = {
 
 // ── Skeleton ──────────────────────────────────────────────────────────────────
 
-<<<<<<< HEAD
 export const SkeletonStories: StoryObj = {
   render: () => <Skeleton style={{ height: '20px', width: '240px' }} />,
-=======
-export const SkeletonStories: Meta<typeof Skeleton> = {
-  title: 'Simple/Skeleton',
-  component: Skeleton,
-  tags: ['autodocs'],
->>>>>>> 1ef8b9a (docs(storybook): add Button stories — playground, variants, intents, sizes, icons, states, a11y)
 };
 
 export const SkeletonCard: StoryObj<typeof Skeleton> = {
