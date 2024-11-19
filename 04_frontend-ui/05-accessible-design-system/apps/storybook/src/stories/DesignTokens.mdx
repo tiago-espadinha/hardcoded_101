@@ -1,0 +1,192 @@
+{/* Design Tokens — Aurora DS Storybook docs page */}
+
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Docs/Design Tokens" />
+
+# Design Tokens
+
+Aurora DS uses a **two-layer token architecture**: primitive tokens define the raw values, semantic tokens reference primitives and give them meaning.
+
+## Layer 1 — Primitive Tokens
+
+Raw values without context. Never use these directly in components.
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--aurora-color-primitive-blue-600</code>
+      </td>
+      <td>
+        <code>#2563eb</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-color-primitive-slate-900</code>
+      </td>
+      <td>
+        <code>#0f172a</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-color-primitive-green-600</code>
+      </td>
+      <td>
+        <code>#16a34a</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Layer 2 — Semantic Tokens
+
+Reference primitives and automatically resolve to the correct value per theme.
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Light Mode</th>
+      <th>Dark Mode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--aurora-color-brand-default</code>
+      </td>
+      <td>
+        <code>blue.600</code>
+      </td>
+      <td>
+        <code>blue.400</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-color-background-default</code>
+      </td>
+      <td>
+        <code>slate.50</code>
+      </td>
+      <td>
+        <code>slate.950</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-color-foreground-default</code>
+      </td>
+      <td>
+        <code>slate.900</code>
+      </td>
+      <td>
+        <code>slate.50</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-color-error-default</code>
+      </td>
+      <td>
+        <code>red.600</code>
+      </td>
+      <td>
+        <code>red.400</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-color-success-default</code>
+      </td>
+      <td>
+        <code>green.600</code>
+      </td>
+      <td>
+        <code>green.400</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Spacing Scale
+
+Based on a **4px grid**. Always use spacing tokens — never raw pixel values.
+
+`0` · `4px` · `8px` · `12px` · `16px` · `20px` · `24px` · `32px` · `40px` · `48px` · `56px` · `64px` · `80px` · `96px` · `128px`
+
+## Motion
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--aurora-motion-duration-fast</code>
+      </td>
+      <td>
+        <code>100ms</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-motion-duration-normal</code>
+      </td>
+      <td>
+        <code>200ms</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-motion-duration-slow</code>
+      </td>
+      <td>
+        <code>400ms</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-motion-easing-ease-out</code>
+      </td>
+      <td>
+        <code>cubic-bezier(0, 0, 0.2, 1)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--aurora-motion-easing-spring</code>
+      </td>
+      <td>
+        <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Using Tokens in Components
+
+```tsx
+// CSS custom property (recommended)
+<div style={{ color: 'var(--aurora-color-foreground-default)' }} />
+
+// Tailwind (via aurora- prefix)
+<div className="text-aurora-foreground-default bg-aurora-background-subtle" />
+
+// TypeScript constant reference
+import { TOKEN } from '@aurora-ds/tokens';
+const color = TOKEN.color.brand.default; // 'var(--aurora-color-brand-default)'
+```

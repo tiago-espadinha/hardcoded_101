@@ -1,0 +1,111 @@
+{/* Accessibility Guidelines — Aurora DS */}
+
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Accessibility Guidelines" />
+
+# Accessibility Guidelines
+
+Aurora DS targets **WCAG 2.1 Level AA** compliance across all components.
+
+## Colour Contrast
+
+All semantic colour pairs meet or exceed the required contrast ratios.
+
+<table>
+  <thead>
+    <tr>
+      <th>Pair</th>
+      <th>Contrast</th>
+      <th>Requirement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>foreground.default</code> on <code>background.default</code> (light)</td>
+      <td><strong>14.1:1</strong></td>
+      <td>≥ 4.5:1 (text)</td>
+    </tr>
+    <tr>
+      <td><code>foreground.default</code> on <code>background.default</code> (dark)</td>
+      <td><strong>14.1:1</strong></td>
+      <td>≥ 4.5:1 (text)</td>
+    </tr>
+    <tr>
+      <td><code>brand.default</code> on <code>background.default</code> (light)</td>
+      <td><strong>5.5:1</strong></td>
+      <td>≥ 4.5:1 (text)</td>
+    </tr>
+    <tr>
+      <td><code>brand.default</code> on <code>background.default</code> (dark)</td>
+      <td><strong>4.6:1</strong></td>
+      <td>≥ 4.5:1 (text)</td>
+    </tr>
+    <tr>
+      <td><code>error.default</code> on <code>background.default</code> (light)</td>
+      <td><strong>5.9:1</strong></td>
+      <td>≥ 4.5:1 (text)</td>
+    </tr>
+  </tbody>
+</table>
+
+> ⚠️ **Never convey information through colour alone.** Pair colour with an icon, text label, or pattern.
+
+## Keyboard Navigation
+
+All interactive components are fully keyboard-accessible:
+
+* **Focus visible**: every interactive element shows a `2px solid` focus ring in `--aurora-color-focus-ring`
+* **Tab order**: follows natural DOM order; never use `tabindex > 0`
+* **Escape**: closes overlays (Modal, Drawer, Popover, DropdownMenu, Tooltip)
+* **Arrow keys**: navigates within widget patterns (Tabs, Select, RadioGroup, Slider)
+
+## Touch Targets
+
+All interactive elements maintain a **minimum 44×44px tap target** on mobile, even when the visual element is smaller (implemented via `min-h-[44px] min-w-[44px]` with transparent padding).
+
+## Screen Reader Support
+
+Components are tested with:
+
+* **VoiceOver** (macOS Safari)
+* **NVDA** (Windows Chrome)
+
+Key patterns followed:
+
+* `aria-label` on icon-only buttons
+* `aria-describedby` to associate helper/error text with inputs
+* `aria-invalid` on inputs in error state
+* `role="alert"` on error messages and toasts
+* `aria-live="polite"` on dynamic content updates
+* `aria-busy` during loading states
+
+## Automated Testing
+
+Every component story runs **axe-core** via the `@storybook/addon-a11y` panel.
+
+Run the full a11y test suite:
+
+```bash
+pnpm test:a11y
+```
+
+Zero violations is the acceptance criterion. Any PR that introduces axe violations will fail CI.
+
+## Focus Management
+
+* **Modal / Drawer**: focus is trapped inside while open; returns to trigger on close (Radix Dialog)
+* **Toast**: focus is never moved to toasts — they are `aria-live` announcements only
+* **Dropdown / ContextMenu**: focus moves to first item on open (Radix)
+
+## Reduced Motion
+
+All CSS transitions and animations are wrapped in:
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  /* animations here */
+}
+```
+
+Components with JS animations check `window.matchMedia('(prefers-reduced-motion: reduce)')`.
