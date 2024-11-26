@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --docs-display-font: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --docs-body-font: 'Avenir Next', Avenir, 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--aurora-color-background-default);
+  color: var(--aurora-color-foreground-default);
+  font-family: var(--docs-body-font);
+  font-size: var(--aurora-font-size-base);
+  line-height: var(--aurora-line-height-normal);
+  margin: 0;
+}
+
+* { box-sizing: border-box; }
+
+h1,
+h2,
+h3 {
+  font-family: var(--docs-display-font);
+}
+
+::selection {
+  background: var(--aurora-color-primitive-purple-200);
+  color: var(--aurora-color-primitive-purple-950);
+}
+
+.feature-card {
+  box-shadow:
+    0 14px 32px rgba(15, 23, 42, 0.06); 
+    /* color-mix(in srgb, var(--feature-accent) 20%, transparent) 3px -3px, */
+    /* color-mix(in srgb, var(--feature-accent) 12%, transparent) 6px -6px; */
+  transition: box-shadow 220ms ease;
+}
+
+.feature-card:is(:hover, :focus-within) {
+  box-shadow:
+    0 18px 36px rgba(15, 23, 42, 0.1),
+    color-mix(in srgb, var(--feature-accent) 40%, transparent) 0 0 0 3px,
+    color-mix(in srgb, var(--feature-accent) 30%, transparent) 0 0 0 6px,
+    color-mix(in srgb, var(--feature-accent) 20%, transparent) 0 0 0 9px;
+}
+
+.feature-card__icon {
+  transform: translateZ(0);
+  transition: transform 220ms ease;
+}
+
+.feature-card:is(:hover, :focus-within) .feature-card__icon {
+  transform: translate(-2px, -2px) rotate(-4deg) scale(1.08);
+}
+
+.final-cta-button {
+  background: var(--aurora-color-primitive-slate-700);
+  color: white;
+}
+
+.final-cta-button:hover {
+  background: var(--aurora-color-primitive-slate-600) !important;
+  color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card,
+  .feature-card__icon {
+    transition: none;
+  }
+}

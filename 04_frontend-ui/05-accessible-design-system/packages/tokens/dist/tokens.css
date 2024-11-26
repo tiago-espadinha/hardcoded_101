@@ -4,6 +4,7 @@
  */
 
 :root {
+<<<<<<< HEAD
   --aurora-typography-letter-spacing-widest: 0.1em;
   --aurora-typography-letter-spacing-wider: 0.05em;
   --aurora-typography-letter-spacing-wide: 0.025em;
@@ -35,6 +36,89 @@
   --aurora-typography-font-family-display: 'Cabinet Grotesk', 'Inter Variable', ui-sans-serif, sans-serif;
   --aurora-typography-font-family-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   --aurora-typography-font-family-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+=======
+  /* ── Primitive Colours ── */
+  --aurora-color-primitive-slate-50: #f8fafc;
+  --aurora-color-primitive-slate-100: #f1f5f9;
+  --aurora-color-primitive-slate-200: #e2e8f0;
+  --aurora-color-primitive-slate-300: #cbd5e1;
+  --aurora-color-primitive-slate-400: #94a3b8;
+  --aurora-color-primitive-slate-500: #64748b;
+  --aurora-color-primitive-slate-600: #475569;
+  --aurora-color-primitive-slate-700: #334155;
+  --aurora-color-primitive-slate-800: #1e293b;
+  --aurora-color-primitive-slate-900: #0f172a;
+  --aurora-color-primitive-slate-950: #020617;
+
+  --aurora-color-primitive-red-50: #fef2f2;
+  --aurora-color-primitive-red-400: #f87171;
+  --aurora-color-primitive-red-600: #dc2626;
+  --aurora-color-primitive-red-950: #450a0a;
+
+  --aurora-color-primitive-amber-300: #fcd34d;
+  --aurora-color-primitive-amber-500: #f59e0b;
+  --aurora-color-primitive-amber-950: #451a03;
+
+  --aurora-color-primitive-green-50: #f0fdf4;
+  --aurora-color-primitive-green-400: #4ade80;
+  --aurora-color-primitive-green-600: #16a34a;
+  --aurora-color-primitive-green-950: #052e16;
+
+  --aurora-color-primitive-blue-50: #eff6ff;
+  --aurora-color-primitive-blue-300: #93c5fd;
+  --aurora-color-primitive-blue-400: #60a5fa;
+  --aurora-color-primitive-blue-500: #3b82f6;
+  --aurora-color-primitive-blue-600: #2563eb;
+  --aurora-color-primitive-blue-700: #1d4ed8;
+  --aurora-color-primitive-blue-950: #172554;
+
+  --aurora-color-primitive-purple-400: #c084fc;
+  --aurora-color-primitive-purple-600: #9333ea;
+
+  /* ── Semantic Colours — Light Mode (default) ── */
+  --aurora-color-background-default: var(--aurora-color-primitive-slate-50);
+  --aurora-color-background-subtle: var(--aurora-color-primitive-slate-100);
+  --aurora-color-background-muted: var(--aurora-color-primitive-slate-200);
+
+  --aurora-color-foreground-default: var(--aurora-color-primitive-slate-900);
+  --aurora-color-foreground-muted: var(--aurora-color-primitive-slate-500);
+  --aurora-color-foreground-subtle: var(--aurora-color-primitive-slate-400);
+
+  --aurora-color-brand-default: var(--aurora-color-primitive-blue-600);
+  --aurora-color-brand-hover: var(--aurora-color-primitive-blue-700);
+  --aurora-color-brand-subtle: var(--aurora-color-primitive-blue-50);
+
+  --aurora-color-success-default: var(--aurora-color-primitive-green-600);
+  --aurora-color-success-subtle: var(--aurora-color-primitive-green-50);
+
+  --aurora-color-warning-default: var(--aurora-color-primitive-amber-400);
+  --aurora-color-warning-subtle: var(--aurora-color-primitive-amber-950);
+
+  --aurora-color-error-default: var(--aurora-color-primitive-red-600);
+  --aurora-color-error-subtle: var(--aurora-color-primitive-red-50);
+
+  --aurora-color-border-default: var(--aurora-color-primitive-slate-200);
+  --aurora-color-border-strong: var(--aurora-color-primitive-slate-300);
+
+  --aurora-color-focus-ring: var(--aurora-color-primitive-blue-500);
+  --aurora-color-overlay-default: rgba(0, 0, 0, 0.5);
+
+  /* ── Spacing ── */
+  --aurora-spacing-0: 0px;
+  --aurora-spacing-1: 4px;
+  --aurora-spacing-2: 8px;
+  --aurora-spacing-3: 12px;
+  --aurora-spacing-4: 16px;
+  --aurora-spacing-5: 20px;
+  --aurora-spacing-6: 24px;
+  --aurora-spacing-8: 32px;
+  --aurora-spacing-10: 40px;
+  --aurora-spacing-12: 48px;
+  --aurora-spacing-14: 56px;
+  --aurora-spacing-16: 64px;
+  --aurora-spacing-20: 80px;
+  --aurora-spacing-24: 96px;
+>>>>>>> 9990f41 (fix(tokens): bump dark-mode warning colour to amber.400 for WCAG AA contrast compliance)
   --aurora-spacing-32: 128px;
   --aurora-spacing-24: 96px;
   --aurora-spacing-20: 80px;
