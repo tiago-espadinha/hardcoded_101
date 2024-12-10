@@ -292,3 +292,13 @@ export const Switch = React.forwardRef<
   );
 });
 Switch.displayName = 'Switch';
+
+// Touch target utility — applied via wrapper where visual size < 44px
+// Per WCAG 2.5.8 (AA): all interactive controls must have a 44×44px minimum target
+export const TOUCH_TARGET_CLASS = [
+  'relative',
+  'after:absolute after:inset-0',
+  'after:min-h-[44px] after:min-w-[44px]',
+  'after:top-1/2 after:-translate-y-1/2',
+  'after:left-1/2 after:-translate-x-1/2',
+].join(' ');
