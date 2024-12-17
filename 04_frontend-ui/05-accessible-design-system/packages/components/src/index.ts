@@ -14,8 +14,8 @@ export { Badge, Avatar, Spinner, ProgressBar, Skeleton } from './simple/simple';
 // Level 3 — Composite
 export { Input, Textarea, Checkbox, Switch, FieldWrapper } from './composite/forms';
 
-// Level 4 — Complex
-export { Modal, Tabs, Toast, ToastProvider, ToastViewport, Tooltip } from './complex/complex';
+// Level 4 — Complex (+ utilities)
+export { Modal, Tabs, Toast, ToastProvider, ToastViewport, Tooltip, prefersReducedMotion } from './complex/complex';
 
 // Utilities
 export { cn } from './utils';
