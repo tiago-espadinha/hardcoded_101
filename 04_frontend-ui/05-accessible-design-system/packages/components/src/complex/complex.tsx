@@ -299,3 +299,15 @@ export function Tooltip({ content, children, side = 'top', delayDuration = 300 }
     </TooltipPrimitive.Provider>
   );
 }
+
+/**
+ * Reduced-motion utilities
+ * Consumers can check this in JS-driven animations.
+ * CSS animations in complex components are already wrapped
+ * in Tailwind's `motion-safe:` / Radix's animation classes
+ * which respect prefers-reduced-motion automatically.
+ */
+export function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
