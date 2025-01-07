@@ -14,7 +14,7 @@
 
 import React, { useId } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
-import { ChevronDownIcon, ChevronUpIcon, CheckIcon } from '../../icons-shim';
+import { ChevronDownIcon, ChevronUpIcon, CheckIcon } from '../icons-shim';
 import { cn } from '../utils';
 
 export type SelectOption = { value: string; label: string; disabled?: boolean };
