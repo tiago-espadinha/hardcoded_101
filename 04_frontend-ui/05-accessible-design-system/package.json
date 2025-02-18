@@ -1,0 +1,34 @@
+{
+  "name": "aurora-ds",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Aurora Design System — accessible, themeable React component library",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "test": "turbo run test",
+    "test:a11y": "turbo run test:a11y",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "tokens:build": "pnpm --filter @aurora-ds/tokens build",
+    "storybook": "pnpm tokens:build && pnpm --filter @aurora-ds/storybook dev",
+    "docs": "pnpm --filter @aurora-ds/docs dev",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.0",
+    "turbo": "^2.10.12",
+    "typescript": "^5.3.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "tooling/*"
+  ]
+}
