@@ -1,0 +1,3 @@
+print("Hello, Luma!");
+let name = "Developer";
+print("Ready to code, " + name + "?");
