@@ -1,0 +1,5 @@
+print(42 + 10 * 2);
+print((42 + 10) * 2);
+print(100 / 4 - 5);
+print(10 % 3);
+print("hello " + "world");
